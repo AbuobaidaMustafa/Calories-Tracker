@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./CaloriesRecordForm.css";
-
+import ClickCounter from "./ClickCounter";
 function CalorieRecordEdit() {
   const [mealObject, setMealObj] = useState({});
+  const [clickCounter, setClickCounter] = useState(0);
   const dateHandler = (event) => {
     setMealObj({
       ...mealObject,
@@ -34,6 +35,9 @@ function CalorieRecordEdit() {
 
   return (
     <form onSubmit={formHandler}>
+      <div>
+        <h4>Click Number : {clickCounter}</h4>
+      </div>
       <label htmlFor="date">Date:</label>
       <input type="date" name="date" id="date" onChange={dateHandler} />
 
@@ -60,7 +64,8 @@ function CalorieRecordEdit() {
         onChange={caloriesHandler}
       />
       <div className="footer">
-        <button>Add</button>
+        <button type="button">Add</button>
+        <ClickCounter setClickCounter={setClickCounter} />
       </div>
     </form>
   );
