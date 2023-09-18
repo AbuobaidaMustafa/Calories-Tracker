@@ -23,9 +23,12 @@ function App() {
     },
   ];
 
+  const handleSubmitForm = (records) => {
+    console.log(records);
+  };
   return (
     <div className="App">
-      <CalorieRecordEdit />
+      <CalorieRecordEdit onFormSubmit={handleSubmitForm} />
       <RecordList records={records} />{" "}
     </div>
   );

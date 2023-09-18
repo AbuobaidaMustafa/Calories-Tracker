@@ -1,9 +1,15 @@
 import { useState } from "react";
 import "./CaloriesRecordForm.css";
-import ClickCounter from "./ClickCounter";
-function CalorieRecordEdit() {
-  const [mealObject, setMealObj] = useState({});
-  const [clickCounter, setClickCounter] = useState(0);
+// import ClickCounter from "./ClickCounter";
+function CalorieRecordEdit(props) {
+  const DEFAULT_VALUE = {
+    date: "",
+    meal: "",
+    content: "",
+    calories: 0,
+  };
+  const [mealObject, setMealObj] = useState(DEFAULT_VALUE);
+  // const [clickCounter, setClickCounter] = useState(0);
   const dateHandler = (event) => {
     setMealObj({
       ...mealObject,
@@ -21,6 +27,7 @@ function CalorieRecordEdit() {
       ...mealObject,
       content: event.target.value,
     });
+    console.log(event.target.value);
   };
   const caloriesHandler = (event) => {
     setMealObj({
@@ -31,18 +38,29 @@ function CalorieRecordEdit() {
   const formHandler = (event) => {
     event.preventDefault();
     console.log(mealObject);
+    props.onFormSubmit(mealObject);
+    setMealObj(DEFAULT_VALUE);
   };
 
   return (
     <form onSubmit={formHandler}>
-      <div>
-        <h4>Click Number : {clickCounter}</h4>
-      </div>
+      <div>{/* <h4>Click Number : {clickCounter}</h4> */}</div>
       <label htmlFor="date">Date:</label>
-      <input type="date" name="date" id="date" onChange={dateHandler} />
+      <input
+        type="date"
+        name="date"
+        id="date"
+        value={mealObject.date}
+        onChange={dateHandler}
+      />
 
       <label htmlFor="meal">Meal:</label>
-      <select name="meal" id="meal" onChange={mealHandler}>
+      <select
+        name="meal"
+        id="meal"
+        value={mealObject.meal}
+        onChange={mealHandler}
+      >
         <option value="Breakfast">Breakfast</option>
         <option value="Lunch">Lunch</option>
         <option value="Dinner">Dinner</option>
@@ -53,6 +71,7 @@ function CalorieRecordEdit() {
         type="text"
         name="content"
         id="content"
+        value={mealObject.content}
         onChange={contentHandler}
       />
 
@@ -61,11 +80,12 @@ function CalorieRecordEdit() {
         type="number"
         name="calories"
         id="calories"
+        value={mealObject.calories}
         onChange={caloriesHandler}
       />
       <div className="footer">
-        <button type="button">Add</button>
-        <ClickCounter setClickCounter={setClickCounter} />
+        <button>Add</button>
+        {/* <ClickCounter setClickCounter={setClickCounter} />  */}
       </div>
     </form>
   );
