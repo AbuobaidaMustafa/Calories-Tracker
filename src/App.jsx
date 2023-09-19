@@ -1,8 +1,9 @@
 import "./App.css";
 import RecordList from "./components/RecordList";
 import CalorieRecordEdit from "./components/edit/CaloriesRecordEdit";
+import { useState } from "react";
 function App() {
-  const records = [
+  const INTIAL_VALUE = [
     {
       date: new Date(2023, 9, 2),
       meal: "Breakfast",
@@ -22,9 +23,14 @@ function App() {
       calories: 50,
     },
   ];
+  const [records, setRecords] = useState(INTIAL_VALUE);
 
-  const handleSubmitForm = (records) => {
-    console.log(records);
+  const handleSubmitForm = (record) => {
+    const formatedRecord = {
+      ...records,
+      date: new Date(record.date),
+    };
+    setRecords([...records, formatedRecord]);
   };
   return (
     <div className="App">
