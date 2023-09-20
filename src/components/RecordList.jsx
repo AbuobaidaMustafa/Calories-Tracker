@@ -5,7 +5,7 @@ function RecordList(props) {
   return (
     <ul className="record-list">
       {props.records.map((record) => (
-        <li>
+        <li key={record.id}>
           <CalorieRecord
             date={record.date}
             meal={record.meal}
